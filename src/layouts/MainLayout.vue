@@ -1,9 +1,59 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered>
-      <!-- drawer content -->
-    </q-drawer>
+
+      <q-drawer
+        v-model="rightDrawerOpen"
+        show-if-above
+        :width="200"
+        :breakpoint="500"
+        side="right"
+        bordered
+      >
+        <q-scroll-area class="fit">
+          <q-list padding class="menu-list">
+            <q-item exact clickable v-ripple to="/">
+              <q-item-section avatar>
+                <q-icon name="home" />
+              </q-item-section>
+
+              <q-item-section>
+                Home
+              </q-item-section>
+            </q-item>
+
+            <q-item exact clickable v-ripple to="/about">
+              <q-item-section avatar>
+                <q-icon name="star" />
+              </q-item-section>
+
+              <q-item-section>
+                About
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="send" />
+              </q-item-section>
+
+              <q-item-section>
+                Support
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="drafts" />
+              </q-item-section>
+
+              <q-item-section>
+                Contact 
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-scroll-area>
+      </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -38,4 +88,8 @@ export default {
     }
   }
 }
+
+//http://localhost:3000/device/apple_iphone_13_pro_max-11089 /device/:device
+//http://localhost:3000/brand/apple-phones-48 /brand/:brand
+//http://localhost:3000/search/casio /search/:device
 </script>
