@@ -65,7 +65,7 @@
 
         <q-space />
 
-        <q-input dark dense standout v-model="text" input-class="text-right" class="q-ml-md">
+        <q-input dark dense standout placeholder="Search here" v-model="text"  class="q-ml-md">
           <template v-slot:append>
             <q-icon v-if="text === ''" name="search" />
             <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
@@ -77,21 +77,17 @@
   </q-layout>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
-export default {
-  setup () {
-    const rightDrawerOpen = ref(false)
+const rightDrawerOpen = ref(false)
+const text = ref('')
 
-    return {
-      rightDrawerOpen,
-      toggleRightDrawer () {
+ const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
-    }
-  }
-}
+
+
 
 //http://localhost:3000/device/apple_iphone_13_pro_max-11089 /device/:device
 //http://localhost:3000/brand/apple-phones-48 /brand/:brand
