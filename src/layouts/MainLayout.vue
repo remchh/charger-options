@@ -67,7 +67,7 @@
 
         <q-input dark dense standout placeholder="Search here" v-model="text"  class="q-ml-md">
           <template v-slot:append>
-            <q-icon v-if="text === ''" name="search" />
+            <q-icon v-if="text === ''" name="search" @click="getResults"/>
             <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
           </template>
         </q-input>
@@ -78,6 +78,7 @@
 </template>
 
 <script setup>
+import axios from 'axios'
 import { ref } from 'vue'
 
 const rightDrawerOpen = ref(false)
@@ -87,7 +88,16 @@ const text = ref('')
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
 
-
+const getResults = async() => {
+  console.log('results')
+  try {
+    const response = await axios('http://localhost:3000/device/apple_iphone_13_pro_max-11089')
+    console.log(response)
+  }catch(err) {
+    // catches errors both in fetch and response.json
+    alert(err);
+  }
+}
 
 //http://localhost:3000/device/apple_iphone_13_pro_max-11089 /device/:device
 //http://localhost:3000/brand/apple-phones-48 /brand/:brand

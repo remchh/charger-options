@@ -1,9 +1,10 @@
 <template>
   <q-page class="flex flex-center q-pa-md">
     <div>
-      <h3>Look for the best charger for your Phone!</h3>
+      <h3 class="q-mt-md">Look for the best charger for your Phone!</h3>
     </div>
-    <q-card class="my-card">
+
+    <q-card class="my-card q-mb-xl">
       <img src="https://images.unsplash.com/photo-1530319067432-f2a729c03db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2889&q=80">
 
       <q-list>
