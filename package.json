@@ -6,11 +6,15 @@
   "author": "@rafael.mejia",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "start:backend": "nodemon backend.js"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
