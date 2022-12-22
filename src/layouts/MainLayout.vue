@@ -89,13 +89,12 @@ const text = ref('')
       }
 
 const getResults = async() => {
-  console.log('results')
+  console.log('results frontend')
   try {
-    const response = await axios('http://localhost:3000/device/apple_iphone_13_pro_max-11089')
+    const response = await axios('http://localhost:8000/test')
     console.log(response)
   }catch(err) {
-    // catches errors both in fetch and response.json
-    alert(err);
+    console.log(err)
   }
 }
 
