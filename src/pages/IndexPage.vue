@@ -5,7 +5,16 @@
     </div>
 
     <q-card class="my-card q-mb-xl">
-      <img src="https://images.unsplash.com/photo-1530319067432-f2a729c03db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2889&q=80">
+
+      <q-img
+          :src="cellData.img"
+        >
+       <!-- <template v-slot:default>
+  
+            <img src='https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13-pro-max.jpg'>
+ 
+        </template> -->
+      </q-img>
 
       <q-list>
         <q-item clickable>
@@ -51,4 +60,12 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'IndexPage'
 })
+
+</script>
+
+<script setup>
+const props = defineProps({
+  cellData:Object
+})
+
 </script>

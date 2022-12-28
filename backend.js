@@ -16,18 +16,20 @@ app.get('/test', (req, res) => {
  
   console.log('results backend_2')
   
-  //const response = axios('http://localhost:3000/device/apple_iphone_13_pro_max-11089')
-  //res.json(response)
   axios.get('http://localhost:3000/device/apple_iphone_13_pro_max-11089')
-  .then(function (response) {
-    // handle success
-    res.json(response.data)
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error)
-  })
-
+    .then(function (response) {
+      // handle success
+      res.json(response.data)
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error)
+    })
 })
 
 app.listen(8000, () => (`Server is running in port ${PORT}`))
+
+//http://localhost:3000/device/apple_iphone_13_pro_max-11089 /device/:device
+//http://localhost:3000/device/samsung_galaxy_s20_fe_5g-10377
+//http://localhost:3000/brand/apple-phones-48 /brand/:brand
+//http://localhost:3000/search/casio /search/:device

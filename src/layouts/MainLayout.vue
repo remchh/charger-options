@@ -56,7 +56,7 @@
       </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view :cellData="cellData"/>
     </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
@@ -71,6 +71,7 @@
             <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
           </template>
         </q-input>
+
       </q-toolbar>
     </q-footer>
 
@@ -81,24 +82,33 @@
 import axios from 'axios'
 import { ref } from 'vue'
 
+
 const rightDrawerOpen = ref(false)
 const text = ref('')
 
- const toggleRightDrawer = () => {
+const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
-
+let cellData = ref({})
 const getResults = async() => {
   console.log('results frontend')
   try {
     const response = await axios('http://localhost:8000/test')
-    console.log(response)
+    console.log(response.data.title)
+    console.log(response.data.img)
+    cellData.value = response.data
+    console.log(cellData.value)
+    console.log(cellData.value.spec_detail[11].specs[0].value)
+    console.log(cellData.value.spec_detail[11].specs[1].value)
+  
   }catch(err) {
     console.log(err)
   }
 }
 
-//http://localhost:3000/device/apple_iphone_13_pro_max-11089 /device/:device
-//http://localhost:3000/brand/apple-phones-48 /brand/:brand
-//http://localhost:3000/search/casio /search/:device
+
+
+
+
+
 </script>
