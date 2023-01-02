@@ -16,7 +16,7 @@ app.get('/test', (req, res) => {
  
   console.log('results backend_2')
   
-  axios.get('http://localhost:3000/device/apple_iphone_13_pro_max-11089')
+  axios.get('http://localhost:3000/device/samsung_galaxy_s20_fe_5g-10377')
     .then(function (response) {
       // handle success
       res.json(response.data)

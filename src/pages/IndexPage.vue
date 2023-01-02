@@ -1,56 +1,99 @@
 <template>
   <q-page class="flex flex-center q-pa-md">
     <div>
-      <h3 class="q-mt-md">Look for the best charger for your Phone!</h3>
+      <h3 class="q-mt-md text-weight-bold">Look for the best charger for your Phone!</h3>
     </div>
 
-    <q-card class="my-card q-mb-xl">
+    <template v-if="cellData.img">
+      <q-card class="my-card q-mb-xl">
 
-      <q-img
-          :src="cellData.img"
-        >
-       <!-- <template v-slot:default>
-  
-            <img src='https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13-pro-max.jpg'>
- 
-        </template> -->
-      </q-img>
+        <q-img
+            :src="cellData.img"
+          >
+        </q-img> 
 
-      <q-list>
-        <q-item clickable>
-          <q-item-section avatar>
-            <q-icon color="primary" name="smartphone" />
-          </q-item-section>
+        <q-list>
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon color="primary" name="smartphone" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>iPhone 13</q-item-label>
-            <q-item-label caption>Phone model</q-item-label>
-          </q-item-section>
-        </q-item>
+            <q-item-section>
+              <q-item-label>{{ cellData.title }}</q-item-label>
+              <q-item-label caption>Phone model</q-item-label>
+            </q-item-section>
+          </q-item>
 
-        <q-item clickable>
-          <q-item-section avatar>
-            <q-icon color="red" name="power" />
-          </q-item-section>
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon color="red" name="battery_charging_full" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>20W</q-item-label>
-            <q-item-label caption>Max wired watts supported</q-item-label>
-          </q-item-section>
-        </q-item>
+            <q-item-section>
+              <q-item-label>{{ cellData.bat }}</q-item-label>
+              <q-item-label caption>Battery information</q-item-label>
+            </q-item-section>
+          </q-item>
 
-        <q-item clickable>
-          <q-item-section avatar>
-            <q-icon color="amber" name="wifi" />
-          </q-item-section>
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon color="amber" name="power" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>15W</q-item-label>
-            <q-item-label caption>Max wireless watts supported</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-card>
+            <q-item-section>
+              <q-item-label>{{ cellData.charge }}</q-item-label>
+              <q-item-label caption>Charge capacity</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card>
+    </template>
+    
+    <template v-else>
+      <q-card class="my-card q-mb-xl">
+
+        <q-img
+            src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13-pro-max.jpg"
+          >
+        </q-img> 
+
+        <q-list>
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon color="primary" name="smartphone" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>iPhone 13</q-item-label>
+              <q-item-label caption>Phone model</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon color="red" name="battery_charging_full" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>20W</q-item-label>
+              <q-item-label caption>Max wired watts supported</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable>
+            <q-item-section avatar>
+              <q-icon color="amber" name="power" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>15W</q-item-label>
+              <q-item-label caption>Max wireless watts supported</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card>
+    </template>
+
   </q-page>
 </template>
 
@@ -69,3 +112,9 @@ const props = defineProps({
 })
 
 </script>
+
+<style lang="sass" scoped>
+.my-card
+  width: 100%
+  max-width: 275px
+</style>

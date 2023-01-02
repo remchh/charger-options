@@ -61,14 +61,38 @@
 
     <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar class="bg-primary text-white rounded-borders">
-        <q-btn round dense flat icon="menu" class="q-mr-xs" @click="toggleRightDrawer" />
+        <q-btn
+          @click="toggleRightDrawer"
+          class="q-mr-xs"
+          icon="menu"
+          dense
+          flat
+          round
+        />
 
         <q-space />
 
-        <q-input dark dense standout placeholder="Search here" v-model="text"  class="q-ml-md">
+        <q-input
+          v-model="text"
+          @keyup.enter="getResults"
+          class="q-ml-md"
+          placeholder="Search here"
+          dark
+          dense
+          standout
+        >
           <template v-slot:append>
-            <q-icon v-if="text === ''" name="search" @click="getResults"/>
-            <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+            <q-icon
+              v-if="text === ''"
+              @click="getResults"
+              name="search"
+            />
+            <q-icon
+              v-else
+              @click="text = ''"
+              class="cursor-pointer"
+              name="clear"
+            />
           </template>
         </q-input>
 
@@ -90,16 +114,23 @@ const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
 let cellData = ref({})
+
 const getResults = async() => {
   console.log('results frontend')
   try {
     const response = await axios('http://localhost:8000/test')
-    console.log(response.data.title)
-    console.log(response.data.img)
-    cellData.value = response.data
-    console.log(cellData.value)
-    console.log(cellData.value.spec_detail[11].specs[0].value)
-    console.log(cellData.value.spec_detail[11].specs[1].value)
+    cellData.value = response.data.img
+    cellData.value = {
+      img: response.data.img,
+      title: response.data.title,
+      bat: response.data.spec_detail[11].specs[0].value,
+      charge: response.data.spec_detail[11].specs[1].value
+    }
+
+    console.log(cellData.value.img)
+    console.log(cellData.value.title)
+    console.log(cellData.value.bat)
+    console.log(cellData.value.charge)
   
   }catch(err) {
     console.log(err)
