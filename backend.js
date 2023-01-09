@@ -12,11 +12,11 @@ app.get('/', (req, res) => {
   res.json('hello world')
 })
 
-app.get('/test', (req, res) => {
+app.get('/device/:device', (req, res) => {
  
   console.log('results backend_2')
-  
-  axios.get('http://localhost:3000/device/samsung_galaxy_s20_fe_5g-10377')
+  const { device } = req.params
+  axios.get(`http://localhost:3000/device/${device}`)
     .then(function (response) {
       // handle success
       res.json(response.data)
@@ -25,6 +25,26 @@ app.get('/test', (req, res) => {
       // handle error
       console.log(error)
     })
+
+
+})
+
+app.get('/search/:dynamic', (req, res) => {
+ 
+  console.log('results backend_3')
+  const { dynamic }  = req.params
+
+  axios.get(`http://localhost:3000/search/${dynamic}`)
+    .then(function (response) {
+      // handle success
+      res.json(response.data)
+      //res.send({'text': text})
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error)
+    })
+
 })
 
 app.listen(8000, () => (`Server is running in port ${PORT}`))
