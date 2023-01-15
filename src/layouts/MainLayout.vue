@@ -113,21 +113,29 @@ const text = ref('')
 const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
+
 let cellData = ref({})
 
 const getResults = async() => {
   console.log('results frontend')
   try {
     const search = await axios(`http://localhost:8000/search/${text.value}`)
+
     let searchURL = search.data[0].url
+
     const response = await axios(`http://localhost:8000/device/${searchURL}`)
     cellData.value = {
       img: response.data.img,
       title: response.data.title,
       bat: response.data.spec_detail[11].specs[0].value,
-      charge: response.data.spec_detail[11].specs[1].value
+      charge: response.data.spec_detail[11].specs[1].value,
+      name: search.data[1].name,
+      url: search.data[1].url,
+      data: search.data
     }
+
     console.log(searchURL)
+    console.log(typeof(searchURL))
     console.log(text.value)
     console.log(search.data)
     console.log(cellData.value.img)
@@ -141,10 +149,6 @@ const getResults = async() => {
     console.log(err)
   }
 }
-
-
-
-
 
 
 </script>

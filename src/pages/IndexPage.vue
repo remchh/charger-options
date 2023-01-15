@@ -6,7 +6,6 @@
 
     <template v-if="cellData.img">
       <q-card class="my-card q-mb-xl">
-
         <q-img
             :src="cellData.img"
           >
@@ -47,6 +46,30 @@
           </q-item>
         </q-list>
       </q-card>
+      <div class='flex flex-center'>
+        <h4 class="text-center"> Is not your phone model? See more options below:</h4>
+        <div
+            v-for="(item, index) in cellData.data"
+            :key="item[index]"
+            class='btn q-ma-sm'
+          >
+          <q-btn
+            :loading="loading"
+            @click="simulateProgress(3)"
+            color="teal-8"
+            size="lg"
+            style="width: 250px"
+          >
+            {{ item.name }}
+            <!--{{ cellData.data[0].name }}-->
+            <template v-slot:loading>
+              <q-spinner-hourglass class="on-left" />
+              Loading...
+            </template>
+          </q-btn>
+        </div>
+      </div>
+
     </template>
     
     <template v-else>
@@ -107,10 +130,23 @@ export default defineComponent({
 </script>
 
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   cellData:Object
 })
 
+const loading = ref(false)
+const  simulateProgress  = () => {
+      // we set loading state
+      loading.value = true
+
+      // simulate a delay
+      setTimeout(() => {
+        // we're done, we reset loading state
+        loading.value = false
+      }, 3000)
+    }
 </script>
 
 <style lang="sass" scoped>
