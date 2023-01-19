@@ -50,12 +50,12 @@
         <h4 class="text-center"> Is not your phone model? See more options below:</h4>
         <div
             v-for="(item, index) in cellData.data"
-            :key="item[index]"
+            :key="index"
             class='btn q-ma-sm'
           >
           <q-btn
-            :loading="loading"
-            @click="simulateProgress(3)"
+            :loading="cellData.data[index].loading"
+            @click="simulateProgress(index)"
             color="teal-8"
             size="lg"
             style="width: 250px"
@@ -136,17 +136,26 @@ const props = defineProps({
   cellData:Object
 })
 
-const loading = ref(false)
-const  simulateProgress  = () => {
-      // we set loading state
-      loading.value = true
 
-      // simulate a delay
-      setTimeout(() => {
-        // we're done, we reset loading state
-        loading.value = false
-      }, 3000)
-    }
+//const loading = ref(false)
+
+const  simulateProgress  = (id) => {
+    props.cellData.data[id].loading = true
+    // we set loading state
+    //loading.value = true
+    let arr = props.cellData.data
+    
+    console.log(id)
+    console.log(arr)
+    console.log(props.cellData)
+    console.log(props.cellData.data[3])
+    
+    // simulate a delay
+    setTimeout(() => {
+      // we're done, we reset loading state
+      props.cellData.data[id].loading = false
+    }, 3000)
+  }
 </script>
 
 <style lang="sass" scoped>
