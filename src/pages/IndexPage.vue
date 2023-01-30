@@ -47,7 +47,7 @@
         </q-list>
       </q-card>
       <div class='flex flex-center'>
-        <h4 class="text-center"> Is not your phone model? See more options below:</h4>
+        <h4 class="text-center" v-show="cellData.data !== ''"> Is not your phone model? See more options below:</h4>
         <div
             v-for="(item, index) in cellData.data"
             :key="index"
@@ -55,13 +55,12 @@
           >
           <q-btn
             :loading="cellData.data[index].loading"
-            @click="simulateProgress(index)"
+            @click="passIndex(index); simulateProgress(index);"
             color="teal-8"
             size="lg"
             style="width: 250px"
           >
             {{ item.name }}
-            <!--{{ cellData.data[0].name }}-->
             <template v-slot:loading>
               <q-spinner-hourglass class="on-left" />
               Loading...
@@ -128,33 +127,37 @@ export default defineComponent({
 })
 
 </script>
-
+<!-- CHILD COMPONENT -->
 <script setup>
-import { ref } from 'vue'
+import { inject } from 'vue'
+
+const emitter = inject('emitter')
+const passIndex = (index) => {
+  emitter.emit('pass-index', index)
+}
+
 
 const props = defineProps({
   cellData:Object
 })
 
 
-//const loading = ref(false)
-
 const  simulateProgress  = (id) => {
     props.cellData.data[id].loading = true
     // we set loading state
-    //loading.value = true
+
     let arr = props.cellData.data
-    
-    console.log(id)
-    console.log(arr)
-    console.log(props.cellData)
-    console.log(props.cellData.data[3])
+    let eventUrl = props.cellData.data[id].url
+
+    console.log('id from child', id)
+    console.log('array from child', arr)
+    console.log('url from child', eventUrl)
     
     // simulate a delay
-    setTimeout(() => {
+    /*setTimeout(() => {
       // we're done, we reset loading state
       props.cellData.data[id].loading = false
-    }, 3000)
+    }, 3000)*/
   }
 </script>
 

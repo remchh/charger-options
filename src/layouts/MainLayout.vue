@@ -74,7 +74,7 @@
 
         <q-input
           v-model="text"
-          @keyup.enter="getResults"
+          @keyup.enter="getResults(index)"
           class="q-ml-md"
           placeholder="Search here"
           dark
@@ -84,7 +84,7 @@
           <template v-slot:append>
             <q-icon
               v-if="text === ''"
-              @click="getResults"
+              @click="getResults(index)"
               name="search"
             />
             <q-icon
@@ -101,10 +101,11 @@
 
   </q-layout>
 </template>
-
+<!--PARENT COMPONENT-->
 <script setup>
 import axios from 'axios'
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+
 
 
 const rightDrawerOpen = ref(false)
@@ -114,14 +115,15 @@ const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
 
+let index = ref(0)
 let cellData = ref({})
 
-const getResults = async() => {
+const getResults = async(index) => {
   console.log('results frontend')
   try {
     const search = await axios(`http://localhost:8000/search/${text.value}`)
 
-    let searchURL = search.data[0].url
+    let searchURL = search.data[index].url
 
     const response = await axios(`http://localhost:8000/device/${searchURL}`)
     cellData.value = {
@@ -149,6 +151,29 @@ const getResults = async() => {
     console.log(err)
   }
 }
+
+const emitter = inject('emitter')
+emitter.on('pass-index', async(index) => {   // *Listen* for event
+      console.log('myevent received!', `index: ${index}`)
+        try {
+        
+          let searchURL = cellData.value.data[index].url
+
+          const response = await axios(`http://localhost:8000/device/${searchURL}`)
+          cellData.value = {
+            img: response.data.img,
+            title: response.data.title,
+            bat: response.data.spec_detail[11].specs[0].value,
+            charge: response.data.spec_detail[11].specs[1].value,
+            name: '',
+            url: '',
+            data: ''
+          }
+        }catch(err) {
+          console.log(err)
+        }
+      
+    })
 
 
 </script>
