@@ -53,7 +53,9 @@ module.exports = configure(function (/* ctx */) {
         browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
         node: 'node16'
       },
-
+      env: {
+        VUE_APP_SITE_KEY: '6Lc_I1UkAAAAAG-k-goZwhIGY_pDTRsIIbMJqN5I'
+      },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,

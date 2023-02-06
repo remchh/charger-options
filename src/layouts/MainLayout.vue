@@ -71,10 +71,11 @@
         />
 
         <q-space />
-
+        <!-- :disable="disable" -->
         <q-input
           v-model="text"
           @keyup.enter="getResults(index)"
+          :disable="disable" 
           class="q-ml-md"
           placeholder="Search here"
           dark
@@ -107,7 +108,7 @@ import axios from 'axios'
 import { ref, inject } from 'vue'
 
 
-
+const disable = ref(true)
 const rightDrawerOpen = ref(false)
 const text = ref('')
 
@@ -118,34 +119,53 @@ const toggleRightDrawer = () => {
 let index = ref(0)
 let cellData = ref({})
 
+function validateText(text) {
+    let wordCount = 0
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === ' ') {
+            wordCount++
+        }
+    }
+    return wordCount >= 1
+}
+
 const getResults = async(index) => {
   console.log('results frontend')
   try {
-    const search = await axios(`http://localhost:8000/search/${text.value}`)
+    const isValid = validateText(text.value)
+    console.log(isValid)
+    if (isValid === true) {
+      const search = await axios(`http://localhost:8000/search/${text.value}`)
 
-    let searchURL = search.data[index].url
+      let searchURL = search.data[index].url
 
-    const response = await axios(`http://localhost:8000/device/${searchURL}`)
-    cellData.value = {
-      img: response.data.img,
-      title: response.data.title,
-      bat: response.data.spec_detail[11].specs[0].value,
-      charge: response.data.spec_detail[11].specs[1].value,
-      name: search.data[1].name,
-      url: search.data[1].url,
-      data: search.data
+      const response = await axios(`http://localhost:8000/device/${searchURL}`)
+      cellData.value = {
+        img: response.data.img,
+        title: response.data.title,
+        bat: response.data.spec_detail[11].specs[0].value,
+        charge: response.data.spec_detail[11].specs[1].value,
+        name: search.data[1].name,
+        url: search.data[1].url,
+        data: search.data
+      }
+
+      console.log(searchURL)
+      console.log(typeof(searchURL))
+      console.log(text.value)
+      console.log(search.data)
+      console.log(cellData.value.img)
+      console.log(cellData.value.title)
+      console.log(cellData.value.bat)
+      console.log(cellData.value.charge)
+
+      text.value = ''
+    } else {
+      alert('Please enter a valid phone model with at least two words')
+      text.value = ''
     }
+      disable.value = !disable.value
 
-    console.log(searchURL)
-    console.log(typeof(searchURL))
-    console.log(text.value)
-    console.log(search.data)
-    console.log(cellData.value.img)
-    console.log(cellData.value.title)
-    console.log(cellData.value.bat)
-    console.log(cellData.value.charge)
-
-    text.value = ''
   
   }catch(err) {
     console.log(err)
@@ -174,6 +194,9 @@ emitter.on('pass-index', async(index) => {   // *Listen* for event
         }
       
     })
+emitter.on('pass-value', () =>{
+  disable.value = !disable.value
+})
 
 
 </script>

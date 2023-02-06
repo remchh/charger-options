@@ -46,6 +46,16 @@
           </q-item>
         </q-list>
       </q-card>
+
+      <VueRecaptcha
+        class="flex flex-center"
+        :sitekey="siteKey"
+        @verify="handleSuccess"
+        @error="handleError"
+        @expired="handleExpire"
+        ref="recaptcha"
+      ></VueRecaptcha>
+
       <div class='flex flex-center'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Is not your phone model? See more options below:</h4>
         <div
@@ -114,6 +124,16 @@
           </q-item>
         </q-list>
       </q-card>
+
+      <VueRecaptcha
+        class="flex flex-center"
+        :sitekey="siteKey"
+        @verify="handleSuccess"
+        @error="handleError"
+        @expired="handleExpire"
+        ref="recaptcha"
+      ></VueRecaptcha>
+
     </template>
 
   </q-page>
@@ -121,15 +141,20 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default defineComponent({
-  name: 'IndexPage'
+  name: 'IndexPage',
+  name: 'ReCaptcha',
+    components: {
+    VueRecaptcha
+  }
 })
 
 </script>
 <!-- CHILD COMPONENT -->
 <script setup>
-import { inject } from 'vue'
+import { inject, computed, ref, onDeactivated } from 'vue'
 
 const emitter = inject('emitter')
 const passIndex = (index) => {
@@ -152,6 +177,7 @@ const  simulateProgress  = (id) => {
     console.log('id from child', id)
     console.log('array from child', arr)
     console.log('url from child', eventUrl)
+    console.log(siteKey)
     
     // simulate a delay
     /*setTimeout(() => {
@@ -159,6 +185,30 @@ const  simulateProgress  = (id) => {
       props.cellData.data[id].loading = false
     }, 3000)*/
   }
+
+  const siteKey = computed(() => {
+      return process.env.VUE_APP_SITE_KEY
+    })
+  
+
+  const recaptcha = ref(null)
+  const handleSuccess = () => {
+    emitter.emit('pass-value')
+    console.log('an event ocurred')   
+  }
+  const handleError = () => {
+    console.log('an error ocurred')
+  }
+  const handleExpire = () => {
+    emitter.emit('pass-value')
+    console.log('an expire event ocurred') 
+  }
+  onDeactivated(() => {
+    console.log('onDeactivated')
+    emitter.emit('pass-value')
+    recaptcha.value.reset()
+  })
+
 </script>
 
 <style lang="sass" scoped>
