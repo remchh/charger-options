@@ -143,6 +143,7 @@
 import { defineComponent } from 'vue'
 import { VueRecaptcha } from 'vue-recaptcha'
 
+
 export default defineComponent({
   name: 'IndexPage',
   name: 'ReCaptcha',
@@ -205,7 +206,7 @@ const  simulateProgress  = (id) => {
   }
   onDeactivated(() => {
     console.log('onDeactivated')
-    emitter.emit('pass-value')
+    emitter.emit('pass-value-ondeactivated')
     recaptcha.value.reset()
   })
 

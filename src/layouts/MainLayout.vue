@@ -55,9 +55,17 @@
         </q-scroll-area>
       </q-drawer>
 
-    <q-page-container>
+     <q-page-container>
+      <router-view v-slot="{ Component }" :cellData="cellData">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view> 
+    </q-page-container> 
+
+    <!-- <q-page-container>
       <router-view :cellData="cellData"/>
-    </q-page-container>
+    </q-page-container> -->
 
     <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar class="bg-primary text-white rounded-borders">
@@ -106,8 +114,9 @@
 <script setup>
 import axios from 'axios'
 import { ref, inject } from 'vue'
+import { useQuasar } from 'quasar'
 
-
+const $q = useQuasar()
 const disable = ref(true)
 const rightDrawerOpen = ref(false)
 const text = ref('')
@@ -161,8 +170,15 @@ const getResults = async(index) => {
 
       text.value = ''
     } else {
-      alert('Please enter a valid phone model with at least two words')
+      $q.notify({
+        icon: 'warning',
+        progress: true,
+        color: 'negative',
+        message: 'Please be more specific 😀',
+        position: 'center',
+      })
       text.value = ''
+      disable.value = !disable.value
     }
       disable.value = !disable.value
 
@@ -196,6 +212,9 @@ emitter.on('pass-index', async(index) => {   // *Listen* for event
     })
 emitter.on('pass-value', () =>{
   disable.value = !disable.value
+})
+emitter.on('pass-value-ondeactivated', () =>{
+  disable.value=true
 })
 
 
