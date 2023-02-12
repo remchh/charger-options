@@ -155,13 +155,13 @@ export default defineComponent({
 </script>
 <!-- CHILD COMPONENT -->
 <script setup>
-import { inject, computed, ref, onDeactivated } from 'vue'
+import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
 
 const emitter = inject('emitter')
 const passIndex = (index) => {
   emitter.emit('pass-index', index)
+  
 }
-
 
 const props = defineProps({
   cellData:Object
@@ -179,7 +179,6 @@ const  simulateProgress  = (id) => {
     console.log('array from child', arr)
     console.log('url from child', eventUrl)
     console.log(siteKey)
-    
     // simulate a delay
     /*setTimeout(() => {
       // we're done, we reset loading state
@@ -195,7 +194,7 @@ const  simulateProgress  = (id) => {
   const recaptcha = ref(null)
   const handleSuccess = () => {
     emitter.emit('pass-value')
-    console.log('an event ocurred')   
+    console.log('an event ocurred') 
   }
   const handleError = () => {
     console.log('an error ocurred')
@@ -203,10 +202,16 @@ const  simulateProgress  = (id) => {
   const handleExpire = () => {
     emitter.emit('pass-value')
     console.log('an expire event ocurred') 
+    recaptcha.value.reset()
   }
   onDeactivated(() => {
-    console.log('onDeactivated')
     emitter.emit('pass-value-ondeactivated')
+    console.log('onDeactivated')
+    recaptcha.value.reset()
+  })
+  onBeforeUpdate(() => {
+    emitter.emit('pass-value-updated')
+    console.log('onBeforeUpdated')
     recaptcha.value.reset()
   })
 

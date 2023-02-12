@@ -55,17 +55,17 @@
         </q-scroll-area>
       </q-drawer>
 
-     <q-page-container>
+     <!-- <q-page-container>
       <router-view v-slot="{ Component }" :cellData="cellData">
         <keep-alive>
           <component :is="Component" />
         </keep-alive>
       </router-view> 
-    </q-page-container> 
-
-    <!-- <q-page-container>
-      <router-view :cellData="cellData"/>
     </q-page-container> -->
+
+    <q-page-container>
+      <router-view :cellData="cellData"/>
+    </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar class="bg-primary text-white rounded-borders">
@@ -80,36 +80,38 @@
 
         <q-space />
         <!-- :disable="disable" -->
-        <q-input
-          v-model="text"
-          @keyup.enter="getResults(index)"
-          :disable="disable" 
-          class="q-ml-md"
-          placeholder="Search here"
-          dark
-          dense
-          standout
-        >
-          <template v-slot:append>
-            <q-icon
-              v-if="text === ''"
-              @click="getResults(index)"
-              name="search"
-            />
-            <q-icon
-              v-else
-              @click="text = ''"
-              class="cursor-pointer"
-              name="clear"
-            />
-          </template>
-        </q-input>
-
+        <div class="q-gutter-y-md column" style="width: 250px; max-width: 100%">
+          <q-input
+            v-model="text"
+            @keyup.enter="getResults(index)"
+            :disable="disable" 
+            class="q-ml-md"
+            placeholder="Search here"
+            dark
+            dense
+            standout
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="text === ''"
+                @click="getResults(index)"
+                name="search"
+              />
+              <q-icon
+                v-else
+                @click="text = ''"
+                class="cursor-pointer"
+                name="clear"
+              />
+            </template>
+          </q-input>
+        </div>
       </q-toolbar>
     </q-footer>
 
   </q-layout>
 </template>
+
 <!--PARENT COMPONENT-->
 <script setup>
 import axios from 'axios'
@@ -147,7 +149,7 @@ const getResults = async(index) => {
       const search = await axios(`http://localhost:8000/search/${text.value}`)
 
       let searchURL = search.data[index].url
-
+      text.value = ''
       const response = await axios(`http://localhost:8000/device/${searchURL}`)
       cellData.value = {
         img: response.data.img,
@@ -167,8 +169,8 @@ const getResults = async(index) => {
       console.log(cellData.value.title)
       console.log(cellData.value.bat)
       console.log(cellData.value.charge)
-
-      text.value = ''
+      
+      
     } else {
       $q.notify({
         icon: 'warning',
@@ -181,7 +183,6 @@ const getResults = async(index) => {
       disable.value = !disable.value
     }
       disable.value = !disable.value
-
   
   }catch(err) {
     console.log(err)
@@ -210,10 +211,13 @@ emitter.on('pass-index', async(index) => {   // *Listen* for event
         }
       
     })
-emitter.on('pass-value', () =>{
+emitter.on('pass-value', () => {
   disable.value = !disable.value
 })
-emitter.on('pass-value-ondeactivated', () =>{
+emitter.on('pass-value-ondeactivated', () => {
+  disable.value=true
+})
+emitter.on('pass-value-updated', () => {
   disable.value=true
 })
 
