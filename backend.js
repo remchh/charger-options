@@ -16,7 +16,7 @@ app.get('/device/:device', (req, res) => {
  
   console.log('results backend_2')
   const { device } = req.params
-  axios.get(`http://localhost:3000/device/${device}`)
+  axios.get(`http://node-express-env.eba-fsapbi4a.us-east-2.elasticbeanstalk.com/device/${device}`)
     .then(function (response) {
       // handle success
       res.json(response.data)
@@ -34,7 +34,7 @@ app.get('/search/:dynamic', (req, res) => {
   console.log('results backend_3')
   const { dynamic }  = req.params
 
-  axios.get(`http://localhost:3000/search/${dynamic}`)
+  axios.get(`http://node-express-env.eba-fsapbi4a.us-east-2.elasticbeanstalk.com/search/${dynamic}`)
     .then(function (response) {
       // handle success
       res.json(response.data)
