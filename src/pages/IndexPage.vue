@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center q-pa-md">
     <div>
-      <h3 class="q-mt-md text-weight-bold">Look for the best charger for your Phone!</h3>
+      <h3 class="q-mt-md text-weight-bold">Power up your device with the perfect charger!</h3>
     </div>
 
     <template v-if="cellData.img">
@@ -57,7 +57,7 @@
       ></VueRecaptcha>
 
       <div class='flex flex-center'>
-        <h4 class="text-center" v-show="cellData.data !== ''"> Is not your phone model? See more options below:</h4>
+        <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
         <div
             v-for="(item, index) in cellData.data"
             :key="index"
