@@ -53,3 +53,16 @@ app.listen(8000, () => (`Server is running in port ${PORT}`))
 //http://localhost:3000/device/samsung_galaxy_s20_fe_5g-10377
 //http://localhost:3000/brand/apple-phones-48 /brand/:brand
 //http://localhost:3000/search/casio /search/:device
+
+/** 
+"axios": "^0.21.4",
+"cors": "^2.8.5",
+"express": "^4.18.2",
+"nodemon": "^2.0.20", 
+**/
+
+/**
+         "axios": "^1.3.4",
+        "cors": "^2.8.5",
+        "express": "^4.18.2"
+ */
