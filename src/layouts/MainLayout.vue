@@ -146,11 +146,11 @@ const getResults = async(index) => {
     const isValid = validateText(text.value)
     console.log(isValid)
     if (isValid === true) {
-      const search = await axios(`http://localhost:8000/search/${text.value}`)
+      const search = await axios(`search/${text.value}`)
 
       let searchURL = search.data[index].url
       text.value = ''
-      const response = await axios(`http://localhost:8000/device/${searchURL}`)
+      const response = await axios(`device/${searchURL}`)
       cellData.value = {
         img: response.data.img,
         title: response.data.title,
@@ -196,7 +196,7 @@ emitter.on('pass-index', async(index) => {   // *Listen* for event
         
           let searchURL = cellData.value.data[index].url
 
-          const response = await axios(`http://localhost:8000/device/${searchURL}`)
+          const response = await axios(`device/${searchURL}`)
           cellData.value = {
             img: response.data.img,
             title: response.data.title,
