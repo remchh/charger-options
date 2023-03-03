@@ -8,11 +8,6 @@ const app = express()
 
 app.use(cors())
 
-app.get('/', (req, res) => {
-  console.log('results backend_1')
-  res.json('hello world')
-})
-
 app.get('/device/:device', (req, res) => {
  
   console.log('results backend_2')

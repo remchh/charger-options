@@ -42,13 +42,13 @@
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple>
+            <q-item clickable v-ripple target='_blank' href="https://t.me/remch13">
               <q-item-section avatar>
-                <q-icon name="drafts" />
+                <q-icon name="telegram" />
               </q-item-section>
 
               <q-item-section>
-                Contact 
+                Contact me
               </q-item-section>
             </q-item>
           </q-list>
@@ -161,14 +161,14 @@ const getResults = async(index) => {
         data: search.data
       }
 
-      console.log(searchURL)
+      /*console.log(searchURL)
       console.log(typeof(searchURL))
       console.log(text.value)
       console.log(search.data)
       console.log(cellData.value.img)
       console.log(cellData.value.title)
       console.log(cellData.value.bat)
-      console.log(cellData.value.charge)
+      console.log(cellData.value.charge)*/
       
       
     } else {

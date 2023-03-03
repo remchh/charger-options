@@ -1,10 +1,11 @@
 <template>
   <q-page class="flex flex-center q-pa-md">
-    <div>
-      <h3 class="q-mt-md text-weight-bold">Power up your device with the perfect charger!</h3>
+    <div >
+      <h3 class="text-center q-mt-md text-weight-bold">Power up your device with the perfect charger!</h3>
     </div>
 
     <template v-if="cellData.img">
+
       <q-card class="my-card q-mb-xl">
         <q-img
             :src="cellData.img"
@@ -47,14 +48,16 @@
         </q-list>
       </q-card>
 
-      <VueRecaptcha
-        class="flex flex-center"
-        :sitekey="siteKey"
-        @verify="handleSuccess"
-        @error="handleError"
-        @expired="handleExpire"
-        ref="recaptcha"
-      ></VueRecaptcha>
+      <div class="flex flex-center">
+        <VueRecaptcha
+          
+          :sitekey="siteKey"
+          @verify="handleSuccess"
+          @error="handleError"
+          @expired="handleExpire"
+          ref="recaptcha"
+        ></VueRecaptcha>
+      </div>
 
       <div class='flex flex-center'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
