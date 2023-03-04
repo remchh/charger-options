@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center q-pa-md">
+  <q-page class="flex column flex-center q-pa-md">
     <div >
       <h3 class="text-center q-mt-md text-weight-bold">Power up your device with the perfect charger!</h3>
     </div>

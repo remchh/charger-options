@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh lpR fFf" style="height: 100%">
 
 
       <q-drawer
@@ -86,7 +86,7 @@
             @keyup.enter="getResults(index)"
             :disable="disable" 
             class="q-ml-md"
-            placeholder="Search here"
+            placeholder="Are you a robot?"
             dark
             dense
             standout
