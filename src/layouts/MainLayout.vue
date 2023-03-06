@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf" style="height: 100%">
+  <q-layout view="hHh lpR fFf">
 
 
       <q-drawer
@@ -67,7 +67,7 @@
       <router-view :cellData="cellData"/>
     </q-page-container>
 
-    <q-footer elevated class="bg-grey-8 text-white">
+    <q-footer elevated class="bg-grey-8 text-white" reveal>
       <q-toolbar class="bg-primary text-white rounded-borders">
         <q-btn
           @click="toggleRightDrawer"
@@ -80,7 +80,7 @@
 
         <q-space />
         <!-- :disable="disable" -->
-        <div class="q-gutter-y-md column" style="width: 250px; max-width: 100%">
+        <div class="input q-gutter-y-md column" style="width: 250px, max-width: 100%">
           <q-input
             v-model="text"
             @keyup.enter="getResults(index)"
@@ -223,3 +223,14 @@ emitter.on('pass-value-updated', () => {
 
 
 </script>
+
+<style lang='sass'>
+@media (max-width: $breakpoint-lg)
+  .input
+    width: 450px
+
+@media (max-width: $breakpoint-md-max)
+  .input
+    width: 250px
+
+</style>

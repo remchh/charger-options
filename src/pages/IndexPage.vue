@@ -59,7 +59,7 @@
         ></VueRecaptcha>
       </div>
 
-      <div class='flex flex-center'>
+      <div class='flex flex-center column'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
         <div
             v-for="(item, index) in cellData.data"
@@ -178,10 +178,10 @@ const  simulateProgress  = (id) => {
     let arr = props.cellData.data
     let eventUrl = props.cellData.data[id].url
 
-    console.log('id from child', id)
+    /*console.log('id from child', id)
     console.log('array from child', arr)
     console.log('url from child', eventUrl)
-    console.log(siteKey)
+    console.log(siteKey)*/
     // simulate a delay
     /*setTimeout(() => {
       // we're done, we reset loading state
