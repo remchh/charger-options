@@ -48,7 +48,7 @@
               </q-item-section>
 
               <q-item-section>
-                Contact me
+                Contact us
               </q-item-section>
             </q-item>
           </q-list>
@@ -67,7 +67,7 @@
       <router-view :cellData="cellData"/>
     </q-page-container>
 
-    <q-footer elevated class="bg-grey-8 text-white" reveal>
+    <q-header v-if="$q.platform.is.iphone && $q.platform.is.safari" elevated class="bg-primary text-white">
       <q-toolbar class="bg-primary text-white rounded-borders">
         <q-btn
           @click="toggleRightDrawer"
@@ -86,7 +86,49 @@
             @keyup.enter="getResults(index)"
             :disable="disable" 
             class="q-ml-md"
-            placeholder="Are you a robot?"
+            :placeholder="!disable ? 'Search here' : 'Are you a robot?'"
+            dark
+            dense
+            standout
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="text === ''"
+                @click="getResults(index)"
+                name="search"
+              />
+              <q-icon
+                v-else
+                @click="text = ''"
+                class="cursor-pointer"
+                name="clear"
+              />
+            </template>
+          </q-input>
+        </div>
+      </q-toolbar>
+    </q-header>
+
+    <q-footer v-else elevated reveal class="bg-grey-8 text-white">
+      <q-toolbar class="bg-primary text-white rounded-borders">
+        <q-btn
+          @click="toggleRightDrawer"
+          class="q-mr-xs"
+          icon="menu"
+          dense
+          flat
+          round
+        />
+
+        <q-space />
+        <!-- :disable="disable" -->
+        <div class="input q-gutter-y-md column" style="width: 250px, max-width: 100%">
+          <q-input
+            v-model="text"
+            @keyup.enter="getResults(index)"
+            :disable="disable" 
+            class="q-ml-md"
+            :placeholder="!disable ? 'Search here' : 'Are you a robot?'"
             dark
             dense
             standout
@@ -186,6 +228,14 @@ const getResults = async(index) => {
   
   }catch(err) {
     console.log(err)
+    $q.notify({
+        icon: 'warning',
+        progress: true,
+        color: 'negative',
+        message: 'Please try again 😀',
+        position: 'center',
+      })
+      text.value = ''
   }
 }
 

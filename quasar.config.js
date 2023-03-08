@@ -15,7 +15,10 @@ const { configure } = require('quasar/wrappers');
 module.exports = configure(function (/* ctx */) {
   return {
     
-
+    htmlVariables: {
+      productName: 'Charger Finder Tool',
+      productDescription: 'Discover the best fast charging chargers for your phone or tablet with our website. Our comprehensive reviews and recommendations help you choose the fastest and most efficient chargers for your device. Say goodbye to slow charging and hello to lightning-fast power. Browse our selection of top-rated chargers and get ready to power up in no time.'
+    },
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
     // preFetch: true,
 
