@@ -5,7 +5,7 @@
     </div>
     <div style="max-width: 950px" class="text-body1">
       <p>
-      Welcome to our web app 📱, the most comprehensive tool for finding the best charger options for your smartphone! We know that keeping your phone charged and ready to go is a top priority, which is why we've created this API to help you quickly and easily find the charger that's right for you 🔌.
+      Welcome to powermatchapp 📱, the most comprehensive tool for finding the best charger options for your smartphone! We know that keeping your phone charged and ready to go is a top priority, which is why we've created this API to help you quickly and easily find the charger that's right for you 🔌.
       </p>
       <p>
       Our API pulls data from a variety of sources to provide you with up-to-date information on the latest chargers available, including their compatibility with your phone, charging speed, and more. Whether you're looking for a wireless charger, a portable charger for on-the-go use, or a fast-charging option to get you up and running in no time, we've got you covered 🔋.

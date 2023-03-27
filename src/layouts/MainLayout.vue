@@ -1,7 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-
       <q-drawer
         v-model="rightDrawerOpen"
         show-if-above
@@ -183,7 +182,7 @@ function validateText(text) {
 }
 
 const getResults = async(index) => {
-  console.log('results frontend')
+  /*console.log('results frontend')*/
   try {
     const isValid = validateText(text.value)
     console.log(isValid)
@@ -241,7 +240,7 @@ const getResults = async(index) => {
 
 const emitter = inject('emitter')
 emitter.on('pass-index', async(index) => {   // *Listen* for event
-      console.log('myevent received!', `index: ${index}`)
+      /*console.log('myevent received!', `index: ${index}`)*/
         try {
         
           let searchURL = cellData.value.data[index].url

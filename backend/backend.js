@@ -10,7 +10,7 @@ app.use(cors())
 
 app.get('/device/:device', (req, res) => {
  
-  console.log('results backend_2')
+  /*console.log('results backend_2')*/
   const { device } = req.params
   axios.get(`http://node-express-env.eba-fsapbi4a.us-east-2.elasticbeanstalk.com/device/${device}`)
     .then(function (response) {
@@ -25,7 +25,7 @@ app.get('/device/:device', (req, res) => {
 
 app.get('/search/:dynamic', (req, res) => {
  
-  console.log('results backend_3')
+  /*console.log('results backend_3')*/
   const { dynamic }  = req.params
 
   axios.get(`http://node-express-env.eba-fsapbi4a.us-east-2.elasticbeanstalk.com/search/${dynamic}`)
@@ -55,15 +55,3 @@ app.listen(PORT, () => (`Server is running in port ${PORT}`))
 //http://localhost:3000/brand/apple-phones-48 /brand/:brand
 //http://localhost:3000/search/casio /search/:device
 
-/** 
-"axios": "^0.21.4",
-"cors": "^2.8.5",
-"express": "^4.18.2",
-"nodemon": "^2.0.20", 
-**/
-
-/**
-         "axios": "^1.3.4",
-        "cors": "^2.8.5",
-        "express": "^4.18.2"
- */

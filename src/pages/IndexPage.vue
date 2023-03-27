@@ -59,6 +59,8 @@
         ></VueRecaptcha>
       </div>
 
+      <NativeAds />
+
       <div class='flex flex-center column'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
         <div
@@ -80,10 +82,9 @@
             </template>
           </q-btn>
         </div>
-      </div>
-
+      </div>      
     </template>
-    
+
     <template v-else>
       <q-card class="my-card q-mb-xl">
 
@@ -137,6 +138,8 @@
         ref="recaptcha"
       ></VueRecaptcha>
 
+      <NativeAds />
+
     </template>
 
   </q-page>
@@ -146,6 +149,7 @@
 import { defineComponent } from 'vue'
 import { VueRecaptcha } from 'vue-recaptcha'
 
+/*import postscribe from 'postscribe'*/
 
 export default defineComponent({
   name: 'IndexPage',
@@ -154,11 +158,24 @@ export default defineComponent({
     VueRecaptcha
   }
 })
-
 </script>
-<!-- CHILD COMPONENT -->
+
+<!-- CHILD COMPONENT --> 
+
 <script setup>
-import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
+import { inject, computed, ref, onDeactivated, onBeforeUpdate, onMounted } from 'vue'
+import NativeAds from './NativeAds.vue'
+
+/*import { useMeta } from 'quasar'
+const metaData = {
+  script: {
+    amazon: {
+      src: '//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=fb33a7fe-fbee-4bf4-9032-5777eee05da5',
+      async: true
+    }
+  }
+}
+useMeta(metaData)*/
 
 const emitter = inject('emitter')
 const passIndex = (index) => {
@@ -197,25 +214,25 @@ const  simulateProgress  = (id) => {
   const recaptcha = ref(null)
   const handleSuccess = () => {
     emitter.emit('pass-value')
-    console.log('an event ocurred') 
+    /*console.log('an event ocurred')*/
   }
   const handleError = () => {
-    console.log('an error ocurred')
+    /*console.log('an error ocurred')*/
   }
   const handleExpire = () => {
     emitter.emit('pass-value')
-    console.log('an expire event ocurred') 
     recaptcha.value.reset()
+    /*console.log('an expire event ocurred')*/
   }
   onDeactivated(() => {
     emitter.emit('pass-value-ondeactivated')
-    console.log('onDeactivated')
     recaptcha.value.reset()
+    /*console.log('onDeactivated')*/
   })
   onBeforeUpdate(() => {
     emitter.emit('pass-value-updated')
-    console.log('onBeforeUpdated')
     recaptcha.value.reset()
+    /*console.log('onBeforeUpdated')*/
   })
 
 </script>
