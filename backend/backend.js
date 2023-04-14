@@ -12,7 +12,7 @@ app.get('/device/:device', (req, res) => {
  
   /*console.log('results backend_2')*/
   const { device } = req.params
-  axios.get(`http://node-express-env.eba-fsapbi4a.us-east-2.elasticbeanstalk.com/device/${device}`)
+  axios.get(`https://retrieve-charging-info.herokuapp.com/device/${device}`)
     .then(function (response) {
       // handle success
       res.json(response.data)
@@ -28,7 +28,7 @@ app.get('/search/:dynamic', (req, res) => {
   /*console.log('results backend_3')*/
   const { dynamic }  = req.params
 
-  axios.get(`http://node-express-env.eba-fsapbi4a.us-east-2.elasticbeanstalk.com/search/${dynamic}`)
+  axios.get(`https://retrieve-charging-info.herokuapp.com/search/${dynamic}`)
     .then(function (response) {
       // handle success
       res.json(response.data)

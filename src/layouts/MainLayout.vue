@@ -201,7 +201,7 @@ const getResults = async(index) => {
         url: search.data[1].url,
         data: search.data
       }
-
+      console.log(search.data)
       /*console.log(searchURL)
       console.log(typeof(searchURL))
       console.log(text.value)

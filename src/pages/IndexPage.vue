@@ -149,8 +149,6 @@
 import { defineComponent } from 'vue'
 import { VueRecaptcha } from 'vue-recaptcha'
 
-/*import postscribe from 'postscribe'*/
-
 export default defineComponent({
   name: 'IndexPage',
   name: 'ReCaptcha',
@@ -163,30 +161,18 @@ export default defineComponent({
 <!-- CHILD COMPONENT --> 
 
 <script setup>
-import { inject, computed, ref, onDeactivated, onBeforeUpdate, onMounted } from 'vue'
+import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
 import NativeAds from './NativeAds.vue'
 
-/*import { useMeta } from 'quasar'
-const metaData = {
-  script: {
-    amazon: {
-      src: '//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=fb33a7fe-fbee-4bf4-9032-5777eee05da5',
-      async: true
-    }
-  }
-}
-useMeta(metaData)*/
+const props = defineProps({
+  cellData:Object
+})
 
 const emitter = inject('emitter')
 const passIndex = (index) => {
   emitter.emit('pass-index', index)
   
 }
-
-const props = defineProps({
-  cellData:Object
-})
-
 
 const  simulateProgress  = (id) => {
     props.cellData.data[id].loading = true
@@ -206,34 +192,34 @@ const  simulateProgress  = (id) => {
     }, 3000)*/
   }
 
-  const siteKey = computed(() => {
-      return process.env.VUE_APP_SITE_KEY
-    })
+const siteKey = computed(() => {
+    return process.env.VUE_APP_SITE_KEY
+  })
   
 
-  const recaptcha = ref(null)
-  const handleSuccess = () => {
-    emitter.emit('pass-value')
-    /*console.log('an event ocurred')*/
-  }
-  const handleError = () => {
-    /*console.log('an error ocurred')*/
-  }
-  const handleExpire = () => {
-    emitter.emit('pass-value')
-    recaptcha.value.reset()
-    /*console.log('an expire event ocurred')*/
-  }
-  onDeactivated(() => {
-    emitter.emit('pass-value-ondeactivated')
-    recaptcha.value.reset()
-    /*console.log('onDeactivated')*/
-  })
-  onBeforeUpdate(() => {
-    emitter.emit('pass-value-updated')
-    recaptcha.value.reset()
-    /*console.log('onBeforeUpdated')*/
-  })
+const recaptcha = ref(null)
+const handleSuccess = () => {
+  emitter.emit('pass-value')
+  /*console.log('an event ocurred')*/
+}
+const handleError = () => {
+  /*console.log('an error ocurred')*/
+}
+const handleExpire = () => {
+  emitter.emit('pass-value')
+  recaptcha.value.reset()
+  /*console.log('an expire event ocurred')*/
+}
+onDeactivated(() => {
+  emitter.emit('pass-value-ondeactivated')
+  recaptcha.value.reset()
+  /*console.log('onDeactivated')*/
+})
+onBeforeUpdate(() => {
+  emitter.emit('pass-value-updated')
+  recaptcha.value.reset()
+  /*console.log('onBeforeUpdated')*/
+})
 
 </script>
 
