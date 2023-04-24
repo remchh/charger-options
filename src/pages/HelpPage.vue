@@ -30,13 +30,20 @@
       Thank you for choosing us to help you power up your phone!
       </p>
     </div>
+
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 
+
 export default defineComponent({
   name: 'HelpPage'
 })
+</script>
+
+<script setup>
+import NativeAds from './NativeAds.vue'
+
 </script>

@@ -182,6 +182,7 @@ function validateText(text) {
 }
 
 const getResults = async(index) => {
+  $q.loading.show()
   /*console.log('results frontend')*/
   try {
     const isValid = validateText(text.value)
@@ -211,7 +212,7 @@ const getResults = async(index) => {
       console.log(cellData.value.bat)
       console.log(cellData.value.charge)*/
       
-      
+      $q.loading.hide()
     } else {
       $q.notify({
         icon: 'warning',
@@ -237,6 +238,7 @@ const getResults = async(index) => {
       text.value = ''
   }
 }
+
 
 const emitter = inject('emitter')
 emitter.on('pass-index', async(index) => {   // *Listen* for event
