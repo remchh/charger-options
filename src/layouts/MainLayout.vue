@@ -212,7 +212,7 @@ const getResults = async(index) => {
       console.log(cellData.value.bat)
       console.log(cellData.value.charge)*/
       
-      $q.loading.hide()
+      
     } else {
       $q.notify({
         icon: 'warning',
@@ -225,7 +225,7 @@ const getResults = async(index) => {
       disable.value = !disable.value
     }
       disable.value = !disable.value
-  
+
   }catch(err) {
     console.log(err)
     $q.notify({
@@ -237,6 +237,7 @@ const getResults = async(index) => {
       })
       text.value = ''
   }
+  $q.loading.hide()
 }
 
 
