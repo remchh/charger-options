@@ -154,9 +154,10 @@
 </template>
 
 <!--PARENT COMPONENT-->
+
 <script setup>
 import axios from 'axios'
-import { ref, inject } from 'vue'
+import { ref, inject, provide } from 'vue'
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
@@ -186,7 +187,7 @@ const getResults = async(index) => {
   /*console.log('results frontend')*/
   try {
     const isValid = validateText(text.value)
-    console.log(isValid)
+    /*console.log(isValid)*/
     if (isValid === true) {
       const search = await axios(`search/${text.value}`)
 
@@ -202,7 +203,9 @@ const getResults = async(index) => {
         url: search.data[1].url,
         data: search.data
       }
-      console.log(search.data)
+      /*console.log(search.data)
+      console.log(cellData.value)*/
+      
       /*console.log(searchURL)
       console.log(typeof(searchURL))
       console.log(text.value)
@@ -237,9 +240,13 @@ const getResults = async(index) => {
       })
       text.value = ''
   }
+  text.value = ''
   $q.loading.hide()
 }
 
+/*
+  EMMITTER
+*/
 
 const emitter = inject('emitter')
 emitter.on('pass-index', async(index) => {   // *Listen* for event

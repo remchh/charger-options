@@ -59,7 +59,7 @@
         ></VueRecaptcha>
       </div>
 
-      <NativeAds />
+      <NativeAds :cellData="cellData.name"/>
 
       <div class='flex flex-center column'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
@@ -176,21 +176,26 @@ const passIndex = (index) => {
 
 const  simulateProgress  = (id) => {
     props.cellData.data[id].loading = true
-    // we set loading state
 
-    let arr = props.cellData.data
-    let eventUrl = props.cellData.data[id].url
+    // we set loading state
+    /*let arr = props.cellData.data
+    let eventUrl = props.cellData.data[id].url*/
 
     /*console.log('id from child', id)
     console.log('array from child', arr)
     console.log('url from child', eventUrl)
     console.log(siteKey)*/
+
     // simulate a delay
     /*setTimeout(() => {
       // we're done, we reset loading state
       props.cellData.data[id].loading = false
     }, 3000)*/
   }
+
+/*
+  RECAPTCHA
+*/
 
 const siteKey = computed(() => {
     return process.env.VUE_APP_SITE_KEY
