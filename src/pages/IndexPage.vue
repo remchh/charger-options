@@ -161,12 +161,17 @@ export default defineComponent({
 <!-- CHILD COMPONENT --> 
 
 <script setup>
-import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
+import { inject, computed, ref, onDeactivated, onBeforeUpdate, watchEffect } from 'vue'
 import NativeAds from './NativeAds.vue'
 
 const props = defineProps({
   cellData:Object
 })
+
+
+/*watchEffect(() => {
+  console.log(props.cellData.name)
+})*/
 
 const emitter = inject('emitter')
 const passIndex = (index) => {

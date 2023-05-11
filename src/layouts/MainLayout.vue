@@ -169,6 +169,10 @@ const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
 
+/*
+  ASYN FUNCTION
+*/
+
 let index = ref(0)
 let cellData = ref({})
 
@@ -205,7 +209,14 @@ const getResults = async(index) => {
       }
       /*console.log(search.data)
       console.log(cellData.value)*/
-      
+
+      /*console.log(cellData.value.name)
+      if(cellData.value.name.includes('Apple')){
+      console.log('TRUE')
+      } else {
+      console.log('FALSE')
+      }*/
+
       /*console.log(searchURL)
       console.log(typeof(searchURL))
       console.log(text.value)

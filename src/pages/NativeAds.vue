@@ -25,58 +25,52 @@
 
 <script>
 import { defineComponent } from 'vue'
-import postscribe from 'postscribe'
-
-let codeApple = '9687a0fe-f6ba-4710-9bc5-7c3067df8aeb'
-let codeSamsung = '585fbb2c-bea9-4e35-b167-3d6025a582ec'
 
 export default defineComponent({
   name: 'NativeAds',
   name: 'Ads-Example',
-  mounted: function () {
-    postscribe('#amzn-assoc-ad-9687a0fe-f6ba-4710-9bc5-7c3067df8aeb', `"<script defer async src='//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=${codeSamsung}'><\/script>"`)
-    /*postscribe(`#${idGalaxy}`, `${codeGalaxy}`)*/
-    /*postscribe('#info', `<script type="text/javascript">
-                                  amzn_assoc_placement = "adunit0";
-                                  amzn_assoc_search_bar = "false";
-                                  amzn_assoc_tracking_id = "powermatchapp-20";
-                                  amzn_assoc_ad_mode = "manual";
-                                  amzn_assoc_ad_type = "smart";
-                                  amzn_assoc_marketplace = "amazon";
-                                  amzn_assoc_region = "US";
-                                  amzn_assoc_title = "Anker Chargers";
-                                  amzn_assoc_linkid = "8001da9aea89ecf828f67003b97066cd";
-                                  amzn_assoc_asins = "B099F2H5KH,B09C5RG6KV,B0B466YTT3,B0B2MM1W65";
-                          <\/script>`)
-    postscribe('#image', `<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"><\/script>`)*/
-  }
-
 })
+
 
 </script>
 
 <script setup>  
-import { ref, inject, watchEffect} from 'vue'
+import { watchEffect, onMounted, nextTick, watch} from 'vue'
+import postscribe from 'postscribe'
 
 const props = defineProps({
   cellData:String
 })
 
+
+
+const cellName = props.cellData
+
 watchEffect(() => {
-  console.log(props.cellData)
+  console.log(typeof(cellName))
+  nextTick(() => {
+  let codeApple = '9687a0fe-f6ba-4710-9bc5-7c3067df8aeb'
+  let codeSamsung = '585fbb2c-bea9-4e35-b167-3d6025a582ec'
+  let codeGeneral = ''
+  if(cellName.includes('Apple')){
+    codeGeneral = codeApple
+    console.log('APPLE')
+    } else {
+    codeGeneral = codeSamsung
+    console.log('SAMSUNG')
+  }
+  console.log('Inside Tick:',codeGeneral)
+   postscribe('#amzn-assoc-ad-9687a0fe-f6ba-4710-9bc5-7c3067df8aeb', `"<script defer async src='//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=${codeGeneral}'><\/script>"`)
+})
 })
 
 
-/*import { useMeta } from 'quasar'
-const metaData = {
-  script: {
-    amazon: {
-      src: '//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=53df6291-f3a8-41ed-87ee-ecc87faf9f39',
-      async: true
-    }
-  }
-}
-useMeta(metaData)*/
+
+
+
+
+
+
 
 
 </script>
