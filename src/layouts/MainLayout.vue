@@ -157,7 +157,7 @@
 
 <script setup>
 import axios from 'axios'
-import { ref, inject, provide } from 'vue'
+import { ref, inject } from 'vue'
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()

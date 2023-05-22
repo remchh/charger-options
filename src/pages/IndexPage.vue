@@ -59,7 +59,7 @@
         ></VueRecaptcha>
       </div>
 
-      <NativeAds :cellData="cellData.name"/>
+      <NativeAds v-if='cellData.name' :cellData="cellData.name"/>
 
       <div class='flex flex-center column'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
@@ -138,8 +138,6 @@
         ref="recaptcha"
       ></VueRecaptcha>
 
-      <NativeAds />
-
     </template>
 
   </q-page>
@@ -161,23 +159,20 @@ export default defineComponent({
 <!-- CHILD COMPONENT --> 
 
 <script setup>
-import { inject, computed, ref, onDeactivated, onBeforeUpdate, watchEffect } from 'vue'
+import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
 import NativeAds from './NativeAds.vue'
 
 const props = defineProps({
   cellData:Object
 })
 
-
-/*watchEffect(() => {
-  console.log(props.cellData.name)
-})*/
-
 const emitter = inject('emitter')
 const passIndex = (index) => {
   emitter.emit('pass-index', index)
-  
+  props.cellData.name = props.cellData.data[index].name
+  emitter.emit('pass-name', props.cellData.name)
 }
+
 
 const  simulateProgress  = (id) => {
     props.cellData.data[id].loading = true
