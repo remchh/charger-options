@@ -59,7 +59,7 @@
         ></VueRecaptcha>
       </div>
 
-      <NativeAds v-if='cellData.name' :cellData="cellData.name"/>
+      <NativeAds :key="componentKey" :cellData="cellData.name"/>
 
       <div class='flex flex-center column'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
@@ -162,21 +162,31 @@ export default defineComponent({
 import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
 import NativeAds from './NativeAds.vue'
 
+const emitter = inject('emitter')
+
+const componentKey = ref(0)
+emitter.on('pass-reset', () =>{
+  componentKey.value += 1
+})
+
+const forceRerender = () => {
+  componentKey.value += 1
+}
+
 const props = defineProps({
   cellData:Object
 })
 
-const emitter = inject('emitter')
 const passIndex = (index) => {
   emitter.emit('pass-index', index)
   props.cellData.name = props.cellData.data[index].name
   emitter.emit('pass-name', props.cellData.name)
+  forceRerender()
 }
 
 
 const  simulateProgress  = (id) => {
     props.cellData.data[id].loading = true
-
     // we set loading state
     /*let arr = props.cellData.data
     let eventUrl = props.cellData.data[id].url*/

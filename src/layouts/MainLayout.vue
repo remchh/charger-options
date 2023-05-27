@@ -160,6 +160,8 @@ import axios from 'axios'
 import { ref, inject } from 'vue'
 import { useQuasar } from 'quasar'
 
+const emitter = inject('emitter')
+
 const $q = useQuasar()
 const disable = ref(true)
 const rightDrawerOpen = ref(false)
@@ -207,6 +209,7 @@ const getResults = async(index) => {
         url: search.data[1].url,
         data: search.data
       }
+      emitter.emit('pass-reset')
       /*console.log(search.data)
       console.log(cellData.value)*/
 
@@ -259,7 +262,7 @@ const getResults = async(index) => {
   EMMITTER
 */
 
-const emitter = inject('emitter')
+
 emitter.on('pass-index', async(index) => {   // *Listen* for event
       /*console.log('myevent received!', `index: ${index}`)*/
         try {

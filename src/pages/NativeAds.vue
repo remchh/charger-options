@@ -28,6 +28,7 @@ export default defineComponent({
 import { watchEffect, nextTick, ref, inject } from 'vue'
 import postscribe from 'postscribe'
 
+
 const props = defineProps({
   cellData:String
 })
@@ -59,6 +60,7 @@ watchEffect(() => {
     console.log('Inside Tick:',codeGeneral.value)
     postscribe('#amzn-assoc-ad-9687a0fe-f6ba-4710-9bc5-7c3067df8aeb', `"<script defer async src='//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=${codeGeneral.value}'><\/script>"`)
   })
+  
 })
 
 
