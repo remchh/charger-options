@@ -156,23 +156,24 @@ export default defineComponent({
 })
 </script>
 
-<!-- CHILD COMPONENT --> 
-
 <script setup>
 import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
 import NativeAds from './NativeAds.vue'
 
 const emitter = inject('emitter')
 
-const componentKey = ref(0)
+//Listening value from MainLayout
 emitter.on('pass-reset', () =>{
   componentKey.value += 1
 })
 
+//Reseting component
+const componentKey = ref(0)
 const forceRerender = () => {
   componentKey.value += 1
 }
 
+//Receiving props from MainLayout
 const props = defineProps({
   cellData:Object
 })
@@ -180,8 +181,8 @@ const props = defineProps({
 const passIndex = (index) => {
   emitter.emit('pass-index', index)
   props.cellData.name = props.cellData.data[index].name
-  emitter.emit('pass-name', props.cellData.name)
   forceRerender()
+  /*emitter.emit('pass-name', props.cellData.name)*/
 }
 
 
@@ -211,7 +212,6 @@ const siteKey = computed(() => {
     return process.env.VUE_APP_SITE_KEY
   })
   
-
 const recaptcha = ref(null)
 const handleSuccess = () => {
   emitter.emit('pass-value')

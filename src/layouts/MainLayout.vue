@@ -153,8 +153,6 @@
   </q-layout>
 </template>
 
-<!--PARENT COMPONENT-->
-
 <script setup>
 import axios from 'axios'
 import { ref, inject } from 'vue'
@@ -165,18 +163,14 @@ const emitter = inject('emitter')
 const $q = useQuasar()
 const disable = ref(true)
 const rightDrawerOpen = ref(false)
-const text = ref('')
-
 const toggleRightDrawer = () => {
         rightDrawerOpen.value = !rightDrawerOpen.value
       }
 
 /*
-  ASYN FUNCTION
+  INPUT VALIDATION
 */
-
-let index = ref(0)
-let cellData = ref({})
+const text = ref('')
 
 function validateText(text) {
     let wordCount = 0
@@ -187,6 +181,13 @@ function validateText(text) {
     }
     return wordCount >= 1
 }
+
+/*
+  ASYN API CALL FUNCTION
+*/
+
+let index = ref(0)
+let cellData = ref({})
 
 const getResults = async(index) => {
   $q.loading.show()
@@ -209,16 +210,10 @@ const getResults = async(index) => {
         url: search.data[1].url,
         data: search.data
       }
-      emitter.emit('pass-reset')
+      emitter.emit('pass-reset') //Send value to IndexPage
+
       /*console.log(search.data)
       console.log(cellData.value)*/
-
-      /*console.log(cellData.value.name)
-      if(cellData.value.name.includes('Apple')){
-      console.log('TRUE')
-      } else {
-      console.log('FALSE')
-      }*/
 
       /*console.log(searchURL)
       console.log(typeof(searchURL))
@@ -260,10 +255,12 @@ const getResults = async(index) => {
 
 /*
   EMMITTER
+  emitter.emit -> send
+  emitter.on -> receive, listen
 */
 
-
-emitter.on('pass-index', async(index) => {   // *Listen* for event
+ // Listen from IndexPage to take index value
+emitter.on('pass-index', async(index) => {  
       /*console.log('myevent received!', `index: ${index}`)*/
         try {
         
@@ -284,6 +281,9 @@ emitter.on('pass-index', async(index) => {   // *Listen* for event
         }
       
     })
+
+
+ // Listen from IndexPage to change value disable prop
 emitter.on('pass-value', () => {
   disable.value = !disable.value
 })
