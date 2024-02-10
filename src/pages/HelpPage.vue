@@ -43,7 +43,3 @@ export default defineComponent({
 })
 </script>
 
-<script setup>
-import NativeAds from './NativeAds.vue'
-
-</script>

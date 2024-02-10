@@ -183,7 +183,7 @@ function validateText(text) {
 }
 
 /*
-  ASYN API CALL FUNCTION
+  ASYNC API CALL FUNCTION
 */
 
 let index = ref(0)
@@ -198,9 +198,12 @@ const getResults = async(index) => {
     if (isValid === true) {
       const search = await axios(`search/${text.value}`)
 
+      console.log(search.data)
+      
       let searchURL = search.data[index].url
       text.value = ''
       const response = await axios(`device/${searchURL}`)
+
       cellData.value = {
         img: response.data.img,
         title: response.data.title,
@@ -212,8 +215,8 @@ const getResults = async(index) => {
       }
       emitter.emit('pass-reset') //Send value to IndexPage
 
-      /*console.log(search.data)
-      console.log(cellData.value)*/
+      console.log(search.data)
+      console.log(cellData.value)
 
       /*console.log(searchURL)
       console.log(typeof(searchURL))

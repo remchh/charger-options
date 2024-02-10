@@ -59,7 +59,7 @@
         ></VueRecaptcha>
       </div>
 
-      <NativeAds :key="componentKey" :cellData="cellData.name"/>
+     <!-- <NativeAds :key="componentKey" :cellData="cellData.name"/> -->
 
       <div class='flex flex-center column'>
         <h4 class="text-center" v-show="cellData.data !== ''"> Not what you're looking for? See more options below:</h4>
@@ -158,7 +158,7 @@ export default defineComponent({
 
 <script setup>
 import { inject, computed, ref, onDeactivated, onBeforeUpdate } from 'vue'
-import NativeAds from './NativeAds.vue'
+//import NativeAds from './NativeAds.vue'
 
 const emitter = inject('emitter')
 

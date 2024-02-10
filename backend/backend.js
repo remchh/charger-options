@@ -10,9 +10,10 @@ app.use(cors())
 
 app.get('/device/:device', (req, res) => {
  
-  /*console.log('results backend_2')*/
+  //console.log('results backend_2')
   const { device } = req.params
-  axios.get(`https://retrieve-charging-info.herokuapp.com/device/${device}`)
+
+  axios.get(`https://cel-api-specs.onrender.com/device/${device}`)
     .then(function (response) {
       // handle success
       res.json(response.data)
@@ -25,10 +26,10 @@ app.get('/device/:device', (req, res) => {
 
 app.get('/search/:dynamic', (req, res) => {
  
-  /*console.log('results backend_3')*/
+  //console.log('results backend_3')
   const { dynamic }  = req.params
 
-  axios.get(`https://retrieve-charging-info.herokuapp.com/search/${dynamic}`)
+  axios.get(`https://cel-api-specs.onrender.com/search/${dynamic}`)
     .then(function (response) {
       // handle success
       res.json(response.data)
@@ -40,6 +41,8 @@ app.get('/search/:dynamic', (req, res) => {
     })
 
 })
+
+
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.get('*', (req, res) => {
@@ -54,4 +57,5 @@ app.listen(PORT, () => (`Server is running in port ${PORT}`))
 //http://localhost:3000/device/samsung_galaxy_s20_fe_5g-10377
 //http://localhost:3000/brand/apple-phones-48 /brand/:brand
 //http://localhost:3000/search/casio /search/:device
-
+//https://cel-api-specs.onrender.com/search/casio
+//https://cel-api-specs.onrender.com/device/apple_iphone_13_pro_max-11089 
